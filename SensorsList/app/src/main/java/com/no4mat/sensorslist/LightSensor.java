@@ -1,0 +1,53 @@
+package com.no4mat.sensorslist;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+public class LightSensor extends AppCompatActivity implements SensorEventListener {
+    private SensorManager sensorManager;
+    private Sensor sensor;
+    private ProgressBar progressBar;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_light_sensor);
+        progressBar = (ProgressBar)findViewById(R.id.barLight);
+
+        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float sensorValue = event.values[0];
+        TextView tvLight = (TextView)findViewById(R.id.tvLight);
+        tvLight.setText(sensorValue+"");
+        progressBar.setProgress((int)sensorValue*100/1000);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onResume () {
+        super.onResume();
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause () {
+        super.onPause();
+        sensorManager.unregisterListener(this);
+    }
+}

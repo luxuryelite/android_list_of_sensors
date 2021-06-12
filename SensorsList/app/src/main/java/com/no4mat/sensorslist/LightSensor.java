@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -15,13 +16,14 @@ public class LightSensor extends AppCompatActivity implements SensorEventListene
     private SensorManager sensorManager;
     private Sensor sensor;
     private ProgressBar progressBar;
+    private ImageView brightnessIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_sensor);
         progressBar = (ProgressBar)findViewById(R.id.barLight);
-
+        brightnessIcon = (ImageView)findViewById(R.id.brightnessIcon);
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
@@ -31,7 +33,17 @@ public class LightSensor extends AppCompatActivity implements SensorEventListene
         float sensorValue = event.values[0];
         TextView tvLight = (TextView)findViewById(R.id.tvLight);
         tvLight.setText(sensorValue+"");
-        progressBar.setProgress((int)sensorValue*100/1000);
+        int porcent = (int)sensorValue*100/1000;
+        progressBar.setProgress(porcent);
+        if(porcent > 33) {
+            if (porcent > 66) {
+                brightnessIcon.setImageDrawable(getDrawable(R.drawable.ic_baseline_brightness_high_24));
+            }else {
+                brightnessIcon.setImageDrawable(getDrawable(R.drawable.ic_baseline_brightness_medium_24));
+            }
+        } else {
+            brightnessIcon.setImageDrawable(getDrawable(R.drawable.ic_baseline_brightness_low_24));
+        }
     }
 
     @Override

@@ -64,6 +64,18 @@ public class MainActivity extends AppCompatActivity {
                     case Sensor.TYPE_ACCELEROMETER:
                         intent = new Intent(getApplicationContext(), SensorAccelerometer.class);
                         startActivity(intent);
+                    case Sensor.TYPE_GYROSCOPE:
+                        intent = new Intent(getApplicationContext(), GyroscopeSensor.class);
+                        startActivity(intent);
+                        break;
+                    case Sensor.TYPE_GRAVITY:
+                        intent = new Intent(getApplication(), GravitySensor.class);
+                        startActivity(intent);
+                        break;
+                    case Sensor.TYPE_MAGNETIC_FIELD:
+                        intent = new Intent(getApplicationContext(), MagneticSensor.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });

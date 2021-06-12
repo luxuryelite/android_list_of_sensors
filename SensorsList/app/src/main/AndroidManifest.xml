@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.no4mat.sensorslist">
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SensorsList">
-        <activity android:name=".SensorAccelerometer"></activity>
+        <activity android:name=".MagneticSensor"></activity>
+        <activity android:name=".GravitySensor" />
+        <activity android:name=".GyroscopeSensor" />
+        <activity android:name=".SensorAccelerometer" />
         <activity android:name=".ProximitySensor" />
         <activity android:name=".LightSensor" />
         <activity android:name=".MainActivity">
